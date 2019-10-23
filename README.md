@@ -2,7 +2,7 @@
 Code of “A Self-Attentive Convolutional Neural Networks for Emotion Classiﬁcation on User-Generated Contents”
 
 ## Structure
-![SCNN](https://github.com/sailerml/ImageCache/SCNN.jpg)
+![SACNN](https://github.com/sailerml/ImageCache/SCNN.jpg)
 
 ## Requirements	
 	 * python 3.6
