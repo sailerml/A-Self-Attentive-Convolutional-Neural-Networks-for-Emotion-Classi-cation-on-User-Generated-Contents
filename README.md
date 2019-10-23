@@ -3,6 +3,7 @@ Code of “A Self-Attentive Convolutional Neural Networks for Emotion Classiﬁc
 
 ## Structure
 ![SACNN](https://github.com/sailerml/ImageCache/SCNN.jpg)
+![SACNNs](https://github.com/sailerml/ImageCache/blob/master/SCNN.jpg)
 
 ## Requirements	
 	 * python 3.6
