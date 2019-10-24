@@ -16,7 +16,7 @@ Code of “A Self-Attentive Convolutional Neural Networks for Emotion Classiﬁc
 	glove
 	Sogou News 搜狗新闻
 	
-## Traing
+## Training
 	python train.py
 
 ## Paper Link
