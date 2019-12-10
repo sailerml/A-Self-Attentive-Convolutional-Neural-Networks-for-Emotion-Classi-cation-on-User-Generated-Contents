@@ -407,18 +407,6 @@ class TextCNN:
 
 
 
-    def train_old(self):
-
-        """based on the loss, use SGD to update parameter"""
-
-        learning_rate = tf.train.exponential_decay(self.learning_rate, self.global_step, self.decay_steps,self.decay_rate, staircase=True)
-
-        train_op = tf.contrib.layers.optimize_loss(self.loss_val, global_step=self.global_step,learning_rate=learning_rate, optimizer="Adam",clip_gradients=self.clip_gradients)
-
-        return train_op
-
-
-
     def train(self):
 
         """based on the loss, use SGD to update parameter"""
@@ -440,71 +428,6 @@ class TextCNN:
             train_op = optimizer.apply_gradients(zip(gradients, variables))
 
         return train_op
-
-
-
-#test started. toy task: given a sequence of data. compute it's label: sum of its previous element,itself and next element greater than a threshold, it's label is 1,otherwise 0.
-
-#e.g. given inputs:[1,0,1,1,0]; outputs:[0,1,1,1,0].
-
-#invoke test() below to test the model in this toy task.
-
-def test():
-
-    #below is a function test; if you use this for text classifiction, you need to transform sentence to indices of vocabulary first. then feed data to the graph.
-
-    num_classes=5
-
-    learning_rate=0.001
-
-    batch_size=8
-
-    decay_steps=1000
-
-    decay_rate=0.95
-
-    sequence_length=5
-
-    vocab_size=10000
-
-    embed_size=100
-
-    is_training=True
-
-    dropout_keep_prob=1.0 #0.5
-
-    filter_sizes=[2,3,4]
-
-    num_filters=128
-
-    multi_label_flag=True
-
-    textRNN=TextCNN(filter_sizes,num_filters,num_classes, learning_rate, batch_size, decay_steps, decay_rate,sequence_length,vocab_size,embed_size,is_training,multi_label_flag=multi_label_flag)
-
-    with tf.Session() as sess:
-
-       sess.run(tf.global_variables_initializer())
-
-       for i in range(500):
-
-           input_x=np.random.randn(batch_size,sequence_length) #[None, self.sequence_length]
-
-           input_x[input_x>=0]=1
-
-           input_x[input_x <0] = 0
-
-           input_y_multilabel=get_label_y(input_x)
-
-           loss,possibility,W_projection_value,_=sess.run([textRNN.loss_val,textRNN.possibility,textRNN.W_projection,textRNN.train_op],
-
-                                                    feed_dict={textRNN.input_x:input_x,textRNN.input_y_multilabel:input_y_multilabel,
-
-                                                               textRNN.dropout_keep_prob:dropout_keep_prob,textRNN.tst:False})
-
-           print(i,"loss:",loss,"-------------------------------------------------------")
-
-           print("label:",input_y_multilabel);#print("possibility:",possibility)
-
 
 
 def get_label_y(input_x):
